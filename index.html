@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>BackupPro</title>
+<style>
+    html { scroll-behavior: smooth; }
+    body { margin:0; font-family: Arial, sans-serif; background:#f4f7fb; color:#033a5b; }
+
+    /* NAVBAR */
+    .navbar {
+        background-color: #e2f1ff;
+        padding: 15px 40px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+    .logo { font-size:24px; font-weight:700; color:#005fa3; }
+    .menu { display:flex; gap:20px; }
+    .menu a {
+        text-decoration:none; font-size:16px; color:#0077cc; font-weight:600;
+        padding:8px 14px; border-radius:8px; transition:0.2s; cursor:pointer;
+    }
+    .menu a:hover { background:#cfe7ff; color:#002b44; }
+
+    /* HERO */
+    .hero {
+        position:relative;
+        height:500px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-align:center;
+        color: #fff;
+        background: url("assets/mainimg.jpeg") no-repeat center center;
+        background-size: cover;
+    }
+    .hero::after {
+        content:""; position:absolute; inset:0;
+        background: rgba(0,0,0,0.4); z-index:1;
+    }
+    .hero-content { position:relative; z-index:2; max-width:900px; padding: 0 20px; }
+    .hero h1 { margin:0; font-size:40px; font-weight:700; color:#fff; text-shadow:0 2px 8px rgba(0,0,0,0.4); }
+    .hero h3 { margin-top:12px; font-size:20px; font-weight:500; color: #dceeff; max-width:800px; margin-left:auto; margin-right:auto; }
+    .get-started-btn {
+        display:inline-block; margin-top:28px; padding:14px 34px; font-size:18px; font-weight:700;
+        color:#fff; background:#0077cc; border-radius:8px; text-decoration:none; transition:0.25s;
+    }
+    .get-started-btn:hover { background:#005fa3; transform: translateY(-3px); }
+
+    /* INFO SECTIONS */
+    .info-section { padding:70px 20px; text-align:center; background:#f4faff; }
+    .info-section .inner { max-width:900px; margin:0 auto; }
+    .info-section h2 { color:#004b8d; font-size:32px; margin-bottom:18px; }
+    .info-box {
+        background:#fff; border:2px solid #006bb3; border-radius:12px; padding:24px;
+        max-width:800px; margin:0 auto; box-shadow:0 8px 20px rgba(0,0,0,0.12); transition: transform 0.3s;
+    }
+    .info-box:hover { transform: translateY(-5px); }
+    .info-box p { margin:0; font-size:18px; line-height:1.6; color:#006bb3; }
+
+    /* Feature image (between paragraphs) - smaller width */
+    .feature-img { display:block; margin: 30px auto; max-width:70%; height:auto; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+
+    /* FOOTER */
+    footer { background:#e2f1ff; text-align:center; padding:24px 16px; color:#004b8d; font-weight:600; }
+
+    /* LOGIN MODAL */
+    .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:200; }
+    .modal.show { display:flex; }
+    .modal-content {
+        background:#fff; width: 420px; max-width:92%; padding:34px; border-radius:12px; position:relative;
+        box-shadow:0 12px 30px rgba(0,0,0,0.25); text-align:center;
+    }
+    .close-btn { position:absolute; right:16px; top:10px; font-size:22px; color:#0077cc; cursor:pointer; }
+    .modal-content h2 { margin:0 0 18px 0; color:#004b8d; }
+    .modal-content input {
+        width:100%; padding:12px 14px; margin:10px 0; border-radius:8px; border:1px solid #0077cc; font-size:16px; box-sizing:border-box;
+    }
+    .modal-content button {
+        width:100%; padding:12px 16px; margin-top:12px; background:#0077cc; color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer;
+    }
+    .modal-content button:hover { background:#005fa3; transform:translateY(-2px); }
+
+    /* Responsive */
+    @media (max-width:768px){
+        .hero { height:420px; }
+        .hero h1 { font-size:30px; }
+        .hero h3 { font-size:16px; }
+        .info-section { padding:40px 16px; }
+        .info-section h2 { font-size:24px; }
+        .info-box p { font-size:16px; }
+        .feature-img { max-width:90%; }
+    }
+</style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <div class="navbar">
+        <div class="logo">BackupPro</div>
+        <div class="menu">
+            <a href="">Home</a>
+            <a id="loginBtn">Login</a>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>A new generation cross-platform file backup tool</h1>
+            <h3>BackupPro backs up your files with client-side encryption and efficient deduplication.</h3>
+            <a id="getStartedBtn" class="get-started-btn" href="#info-section">Get Started</a>
+        </div>
+    </section>
+
+    <!-- INFO 1 -->
+    <section class="info-section" id="info-section">
+        <div class="inner">
+            <h2>Secure Your Digital Life with Peace of Mind</h2>
+            <div class="info-box">
+                <p>
+                    Losing important files—from irreplaceable family photos and essential financial records to critical work documents—can be devastating. Our file backup utility offers a robust, effortless way to protect your digital memories and vital data. We utilize industry-leading encryption to ensure your files are private, secure, and accessible only by you. Once installed, our service automatically and continuously backs up your selected files in the background, providing uninterrupted protection without slowing you down.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature image before second paragraph -->
+    <img class="feature-img" src="assets/backuppro.avif" alt="BackupPro feature image">
+
+    <!-- INFO 2 -->
+    <section class="info-section">
+        <div class="inner">
+            <h2>Extensive File Backup Support</h2>
+            <div class="info-box">
+                <p>
+                    Thanks to Lock-Free Deduplication, BackupPro works smoothly with most storage services without compromising essential features required of a modern backup tool. In addition, BackupPro supports local disks and SFTP servers (Mac/Linux), and NAS devices.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- INFO 3 -->
+    <section class="info-section">
+        <div class="inner">
+            <h2>A New Web-Based GUI</h2>
+            <div class="info-box">
+                <p>
+                    Manage your entire data protection strategy from a centralized, web-based admin console accessible from anywhere with an internet connection. Our powerful web GUI provides a unified dashboard to monitor all backup operations, view security events, and perform granular file restoration across multiple devices and platforms. You have complete control to set intelligent backup schedules, define data retention policies, and ensure end-to-end encryption for maximum security and peace of mind.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        © 2025 BackupPro — File Backup Utility
+    </footer>
+
+    <!-- LOGIN MODAL -->
+    <div id="loginModal" class="modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+            <span id="closeModal" class="close-btn" title="Close">&times;</span>
+            <h2 id="loginTitle">Login to BackupPro</h2>
+            <form action="#" method="post" onsubmit="event.preventDefault(); alert('Form submitted (demo)'); modalClose();">
+                <input type="email" name="email" placeholder="Email ID" required />
+                <input type="password" name="password" placeholder="Password" required />
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+<script>
+    // Modal controls
+    const modal = document.getElementById('loginModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const closeModalBtn = document.getElementById('closeModal');
+
+    function modalOpen(){ modal.classList.add('show'); modal.setAttribute('aria-hidden','false'); }
+    function modalClose(){ modal.classList.remove('show'); modal.setAttribute('aria-hidden','true'); }
+
+    loginBtn.addEventListener('click', modalOpen);
+    closeModalBtn.addEventListener('click', modalClose);
+    window.addEventListener('click', (e)=> { if(e.target === modal) modalClose(); });
+
+    // Accessibility: close on Escape
+    window.addEventListener('keydown', (e)=> { if(e.key === 'Escape') modalClose(); });
+</script>
+
+</body>
+</html>
